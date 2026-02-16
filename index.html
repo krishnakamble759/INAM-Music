@@ -332,21 +332,23 @@
           </div>
         </div>
 
-        <!-- Extra Controls -->
-        <div class="d-flex align-items-center gap-3 d-none d-md-flex position-relative player-extra-controls">
-          <button id="btn-volume" class="btn btn-icon text-secondary">
-            <i id="icon-volume" class="bi bi-volume-up"></i>
-          </button>
-          <div id="volume-container" class="progress volume-progress cursor-pointer">
-            <div id="volume-bar" class="progress-bar bg-primary" role="progressbar"></div>
+        <!-- Right side container -->
+        <div class="d-flex align-items-center justify-content-end player-right-side">
+          <!-- Extra Controls -->
+          <div class="d-flex align-items-center gap-3 d-none d-md-flex position-relative player-extra-controls">
+            <button id="btn-volume" class="btn btn-icon text-secondary">
+              <i id="icon-volume" class="bi bi-volume-up"></i>
+            </button>
+            <div id="volume-container" class="progress volume-progress cursor-pointer">
+              <div id="volume-bar" class="progress-bar bg-primary" role="progressbar"></div>
+            </div>
           </div>
 
+          <!-- Close Player Bar Button (Visible on all screens) -->
+          <button id="btn-close-player" class="btn btn-close-player btn-icon text-secondary ms-2 ms-md-3">
+            <i class="bi bi-x-lg"></i>
+          </button>
         </div>
-
-        <!-- Close Player Bar Button (Visible on all screens) -->
-        <button id="btn-close-player" class="btn btn-close-player btn-icon text-secondary ms-2 ms-md-3">
-          <i class="bi bi-x-lg"></i>
-        </button>
       </div>
     </div>
     <!-- Sign In Overlay -->
@@ -608,8 +610,8 @@
               class="detail-track-header d-flex text-secondary small fw-bold uppercase py-2 border-bottom border-white border-opacity-10 mb-3 px-3">
               <span class="track-header-num">#</span>
               <span class="track-header-title flex-grow-1 ms-3">Title</span>
-              <span class="track-header-artist flex-grow-2 d-none d-md-block">Artist</span>
-              <span class="track-header-duration text-end"><i class="bi bi-clock"></i></span>
+              <span class="track-header-artist d-none d-md-block">Artist</span>
+              <span class="track-header-duration"><i class="bi bi-clock me-1"></i> Duration</span>
             </div>
             <div class="detail-track-item d-flex align-items-center py-3 rounded-3 px-3 active-track glass-hover">
               <span class="track-num text-success fw-bold">
@@ -624,10 +626,8 @@
                   Title</span>
               </div>
               <span id="detail-active-artist"
-                class="detail-active-artist track-artist text-secondary flex-grow-2 d-none d-md-block">Artist
-                Name</span>
-              <span id="detail-active-duration"
-                class="detail-active-duration track-duration text-secondary text-end">...</span>
+                class="detail-active-artist track-artist text-secondary d-none d-md-block">Artist Name</span>
+              <span id="detail-active-duration" class="detail-active-duration track-duration text-secondary">...</span>
             </div>
           </div>
 

@@ -234,6 +234,17 @@ audio.addEventListener('error', (e) => {
 
 // DOM Elements
 const recentlyPlayedSection = document.getElementById('recently-played-section');
+
+// Function to toggle page scrolling
+const toggleBodyScroll = (isFixed) => {
+    if (isFixed) {
+        document.body.classList.add('no-scroll');
+        document.documentElement.classList.add('no-scroll');
+    } else {
+        document.body.classList.remove('no-scroll');
+        document.documentElement.classList.remove('no-scroll');
+    }
+};
 const recentlyPlayedGrid = document.getElementById('recently-played-grid');
 const latestGrid = document.getElementById('latest-songs-grid');
 const ninetyGrid = document.getElementById('ninety-songs-grid');
@@ -538,7 +549,7 @@ function showArtistPage(artistName) {
     // Close detail view if open
     if (playerDetailView) {
         playerDetailView.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
     }
 }
 
@@ -575,7 +586,7 @@ function showPlayAuthOverlay(index) {
         playAuthTitle.textContent = track.title;
         playAuthArtist.textContent = track.artist;
         playAuthOverlay.classList.remove('d-none');
-        document.body.style.overflow = 'hidden';
+        toggleBodyScroll(true);
     }
 }
 
@@ -692,11 +703,19 @@ function pauseMusic() {
 }
 
 function togglePlay() {
+    if (!currentUser && !isPlaying) {
+        showPlayAuthOverlay(currentTrackIndex);
+        return;
+    }
     if (isPlaying) pauseMusic();
     else playMusic();
 }
 
 function nextTrack() {
+    if (!currentUser) {
+        showPlayAuthOverlay(currentTrackIndex);
+        return;
+    }
     // Check Queue First
     if (songQueue.length > 0) {
         const nextId = songQueue.shift();
@@ -723,6 +742,10 @@ function nextTrack() {
 }
 
 function prevTrack() {
+    if (!currentUser) {
+        showPlayAuthOverlay(currentTrackIndex);
+        return;
+    }
     currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
     loadTrack(currentTrackIndex);
     playMusic();
@@ -998,25 +1021,15 @@ function setupEventListeners() {
     playerArt?.addEventListener('click', () => {
         updateDetailView();
         playerDetailView.classList.remove('d-none');
-        document.body.style.overflow = 'hidden';
+        toggleBodyScroll(true);
     });
 
     btnCloseDetail?.addEventListener('click', () => {
         playerDetailView.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
     });
 
-    btnDetailPlay?.addEventListener('click', () => {
-        if (isPlaying) {
-            pauseMusic();
-            detailPlayIcon.classList.remove('d-none');
-            detailPauseIcon.classList.add('d-none');
-        } else {
-            playMusic();
-            detailPlayIcon.classList.add('d-none');
-            detailPauseIcon.classList.remove('d-none');
-        }
-    });
+    btnDetailPlay?.addEventListener('click', togglePlay);
 
     // Shuffle Toggle
     const toggleShuffle = () => {
@@ -1074,7 +1087,7 @@ function setupEventListeners() {
     // Sign In Toggle
     btnSignIn?.addEventListener('click', () => {
         signinOverlay.classList.remove('d-none');
-        document.body.style.overflow = 'hidden';
+        toggleBodyScroll(true);
         if (signinError) signinError.classList.add('d-none');
 
         // Close Mobile Nav if open
@@ -1087,14 +1100,14 @@ function setupEventListeners() {
 
     btnCloseSignIn?.addEventListener('click', () => {
         signinOverlay.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
     });
 
     // Close on outside click
     signinOverlay?.addEventListener('click', (e) => {
         if (e.target === signinOverlay) {
             signinOverlay.classList.add('d-none');
-            document.body.style.overflow = 'auto';
+            toggleBodyScroll(false);
         }
     });
 
@@ -1124,7 +1137,7 @@ function setupEventListeners() {
         alert(`Welcome back, ${user.name || 'User'}!`);
         if (signinOverlay) {
             signinOverlay.classList.add('d-none');
-            document.body.style.overflow = 'auto';
+            toggleBodyScroll(false);
         }
 
         currentUser = user;
@@ -1158,14 +1171,14 @@ function setupEventListeners() {
 
             if (profileOverlay) {
                 profileOverlay.classList.remove('d-none');
-                document.body.style.overflow = 'hidden';
+                toggleBodyScroll(true);
             }
         }
     });
 
     btnCloseProfile?.addEventListener('click', () => {
         profileOverlay.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
     });
 
     profileOverlay?.addEventListener('click', (e) => {
@@ -1187,7 +1200,7 @@ function setupEventListeners() {
         }
 
         profileOverlay.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
         alert('You have been logged out.');
     }
 
@@ -1220,7 +1233,7 @@ function setupEventListeners() {
 
         if (profileOverlay) {
             profileOverlay.classList.remove('d-none');
-            document.body.style.overflow = 'hidden';
+            toggleBodyScroll(true);
         }
     });
 
@@ -1228,7 +1241,7 @@ function setupEventListeners() {
     btnCloseProfile?.addEventListener('click', () => {
         if (profileOverlay) {
             profileOverlay.classList.add('d-none');
-            document.body.style.overflow = 'auto';
+            toggleBodyScroll(false);
         }
     });
 
@@ -1247,7 +1260,7 @@ function setupEventListeners() {
     // Sign Up Toggle
     btnSignUp?.addEventListener('click', () => {
         signupOverlay.classList.remove('d-none');
-        document.body.style.overflow = 'hidden';
+        toggleBodyScroll(true);
         if (signupError) signupError.classList.add('d-none');
 
         // Close Mobile Nav if open
@@ -1260,13 +1273,13 @@ function setupEventListeners() {
 
     btnCloseSignUp?.addEventListener('click', () => {
         signupOverlay.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
     });
 
     signupOverlay?.addEventListener('click', (e) => {
         if (e.target === signupOverlay) {
             signupOverlay.classList.add('d-none');
-            document.body.style.overflow = 'auto';
+            toggleBodyScroll(false);
         }
     });
 
@@ -1302,7 +1315,7 @@ function setupEventListeners() {
         saveUser({ name, email, password });
         alert(`Welcome to Sonic Flow, ${name}! Your account has been created successfully. You can now Sign In.`);
         if (signupOverlay) signupOverlay.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
 
         // Auto-open sign in after successful signup
         if (signinOverlay) signinOverlay.classList.remove('d-none');
@@ -1320,7 +1333,7 @@ function setupEventListeners() {
     // Playback Auth Listeners
     btnClosePlayAuth?.addEventListener('click', () => {
         if (playAuthOverlay) playAuthOverlay.classList.add('d-none');
-        document.body.style.overflow = 'auto';
+        toggleBodyScroll(false);
     });
 
     btnAuthSignup?.addEventListener('click', () => {
@@ -1338,7 +1351,7 @@ function setupEventListeners() {
         playAuthOverlay.addEventListener('click', (e) => {
             if (e.target === playAuthOverlay) {
                 playAuthOverlay.classList.add('d-none');
-                document.body.style.overflow = 'auto';
+                toggleBodyScroll(false);
             }
         });
     }
@@ -1406,7 +1419,7 @@ function setupEventListeners() {
                 // Show Overlay
                 if (socialShareOverlay) {
                     socialShareOverlay.classList.remove('d-none');
-                    document.body.style.overflow = 'hidden';
+                    toggleBodyScroll(true);
                 }
             });
         }
@@ -1415,7 +1428,7 @@ function setupEventListeners() {
         const closeShareModal = () => {
             if (socialShareOverlay) {
                 socialShareOverlay.classList.add('d-none');
-                document.body.style.overflow = 'auto';
+                toggleBodyScroll(false);
             }
         };
 
@@ -1504,7 +1517,7 @@ function setupEventListeners() {
                 if (lyricsMiniTitle) lyricsMiniTitle.textContent = track.title;
                 if (lyricsMiniArtist) lyricsMiniArtist.textContent = track.artist;
 
-                document.body.style.overflow = 'hidden';
+                toggleBodyScroll(true);
                 updateLyricsScroll();
                 moreOptionsMenu.classList.add('d-none');
             });
@@ -1536,7 +1549,7 @@ function setupEventListeners() {
         btnCloseLyrics.addEventListener('click', () => {
             lyricsOverlay.classList.add('d-none');
             if (playerBar) playerBar.classList.remove('d-none');
-            document.body.style.overflow = 'auto';
+            toggleBodyScroll(false);
         });
     }
 
