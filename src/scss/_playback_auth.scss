@@ -180,6 +180,10 @@
             @include too-small-mobile {
                 font-size: 12px;
                 padding: 8px 4px;
+                white-space: normal;
+                line-height: 1.2;
+                width: 100%;
+                min-width: 0;
             }
         }
 
