@@ -37,7 +37,7 @@ const tracks = [
         artist: track.artist,
         year: track.year || '2026',
         src: `./poster/latest_songs/${track.file}`,
-        cover: `/latest/${track.img}`
+        cover: `./latest/${track.img}`
     })),
     // 90's Songs (20 Tracks)
     ...[
@@ -68,7 +68,7 @@ const tracks = [
         artist: track.artist,
         year: track.year || '1997',
         src: `./poster/90s_songs/${track.file}`,
-        cover: `/90s/${track.img}`
+        cover: `./90s/${track.img}`
     })),
     // Hindi Bollywood Songs (20 Tracks)
     ...[
@@ -99,7 +99,7 @@ const tracks = [
         artist: track.artist,
         year: track.year || '2024',
         src: `./poster/bollywood_hindi_song/${track.file}`,
-        cover: `/bollywood_hindi_songs/${track.cover}`
+        cover: `./bollywood_hindi_songs/${track.cover}`
     })),
     // Marathi Songs (20 Tracks)
     ...[
@@ -130,7 +130,7 @@ const tracks = [
         artist: track.artist,
         year: track.year || '2024',
         src: `./poster/marathi_songs/${track.file}`,
-        cover: `/marathi/${track.img}`
+        cover: `./marathi/${track.img}`
     })),
     // Devotional Songs (20 Tracks)
     ...[
@@ -161,7 +161,7 @@ const tracks = [
         artist: track.artist,
         year: track.year || '2024',
         src: `./poster/devotional_songs/${track.file}`,
-        cover: `/devotional/${track.img}`
+        cover: `./devotional/${track.img}`
     }))
 ];
 
