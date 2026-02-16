@@ -1,20 +1,10 @@
 @import 'variables';
+@import "bootstrap/scss/bootstrap";
+@import 'mic_animation';
 @import 'signin';
 @import 'playback_auth';
 @import 'more_options';
 @import 'lyrics';
-
-// 1. Custom Variable Overrides
-
-$body-bg: $dark;
-$body-color: $light;
-$font-family-base: 'Outfit', system-ui, -apple-system, sans-serif;
-$enable-gradients: true;
-$enable-shadows: true;
-
-// 2. Import Bootstrap
-@import "bootstrap/scss/bootstrap";
-@import 'mic_animation';
 
 // Splash Screen
 .splash-screen {
