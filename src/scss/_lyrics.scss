@@ -1,0 +1,173 @@
+// Lyrics Overlay Styles
+.lyrics-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba($primary-color, 0.9), rgba($tertiary-color, 0.9));
+    backdrop-filter: blur(20px);
+    z-index: 4000;
+    opacity: 0;
+    animation: fadeIn 0.4s forwards ease-out;
+
+    &.d-none {
+        display: none;
+    }
+
+    .btn-close-custom {
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        color: $white-color;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: $lime-green;
+            transform: scale(1.1);
+        }
+    }
+
+    .lyrics-container {
+        padding-top: 20px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        @include mobile {
+            padding-top: 10px;
+        }
+    }
+
+    .lyrics-header {
+        margin-bottom: 32px;
+        padding: 0 16px;
+
+        @include mobile {
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            @include mobile {
+                font-size: 20px;
+            }
+        }
+
+        p {
+            @include mobile {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .lyrics-content-wrapper {
+        flex: 1;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+
+        // Hide scrollbar
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        .lyrics-text {
+            font-family: 'Outfit', sans-serif;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            font-size: 40px;
+            line-height: 1.6;
+            padding-top: 320px;
+            padding-bottom: 400px;
+            transition: all 0.3s ease;
+
+            @include mobile {
+                padding-top: 240px;
+                padding-bottom: 320px;
+            }
+
+            .lyric-line {
+                color: rgba(255, 255, 255, 0.3);
+                transition: all 0.4s ease;
+                transform: scale(0.9);
+                filter: blur(1px);
+                margin: 19px 0;
+                padding: 0 24px;
+
+                @include mobile {
+                    margin: 13px 0;
+                    padding: 0 16px;
+                    transform: scale(0.85);
+                }
+
+                &.active {
+                    color: $white-color;
+                    transform: scale(1.05);
+                    filter: blur(0);
+                    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+
+                    @include mobile {
+                        transform: scale(1);
+                    }
+                }
+            }
+        }
+    }
+
+    .lyrics-content-wrapper {
+        .lyrics-mini-player {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px 24px 0 0;
+            max-width: 100%;
+            width: 100%;
+            margin-top: auto;
+            z-index: 100;
+            padding-bottom: calc(16px + env(safe-area-inset-bottom));
+
+            @include mobile {
+                padding: 12px 16px;
+                border-radius: 0;
+            }
+
+            button {
+                @include mobile {
+                    width: 44px;
+                    height: 44px;
+
+                    i {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .lyrics-player-info h6 {
+                @include mobile {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .glass-player {
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+        }
+    }
+}
