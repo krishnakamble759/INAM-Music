@@ -1,4 +1,4 @@
-# 🎵 INAM-Music (Sonic Flow)
+# 🎵 INAM-Music
 
 A premium, fully responsive music streaming web application built with modern web technologies. Experience seamless playback, dynamic categorization, and an immersive user interface designed for music lovers.
 
