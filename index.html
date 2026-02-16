@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INAM APP - Premium Music Experience</title>
+  <meta name="description"
+    content="Immerse yourself in high fidelity audio with INAM Music. Discover new tracks and create your perfect playlist." />
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script type="module" crossorigin src="/INAM-Music/assets/index-DnTe_rCS.js"></script>
+  <link rel="stylesheet" crossorigin href="/INAM-Music/assets/index-QgPjyDOP.css">
+</head>
+
+<body>
+  <!-- Social Share Overlay -->
+  <div id="social-share-overlay" class="signin-overlay d-none">
+    <div class="signin-container bg-dark p-4 rounded-4 shadow-lg" style="max-width: 400px; width: 90%;">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="mb-0 fw-bold text-white">Share Song</h4>
+        <button id="btn-close-share" class="btn btn-icon text-secondary hover-white border-0 bg-transparent">
+          <i class="bi bi-x-lg fs-5"></i>
+        </button>
+      </div>
+
+      <div class="d-flex justify-content-around mb-4 flex-wrap gap-3">
+        <a id="share-whatsapp" href="#" target="_blank" class="text-decoration-none text-center">
+          <div class="btn btn-success rounded-circle d-flex align-items-center justify-content-center mb-2"
+            style="width: 50px; height: 50px;">
+            <i class="bi bi-whatsapp fs-4"></i>
+          </div>
+          <small class="text-white-50">WhatsApp</small>
+        </a>
+        <a id="share-twitter" href="#" target="_blank" class="text-decoration-none text-center">
+          <div
+            class="btn btn-dark border border-secondary rounded-circle d-flex align-items-center justify-content-center mb-2"
+            style="width: 50px; height: 50px;">
+            <i class="bi bi-twitter-x fs-4"></i>
+          </div>
+          <small class="text-white-50">X</small>
+        </a>
+        <a id="share-facebook" href="#" target="_blank" class="text-decoration-none text-center">
+          <div class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center mb-2"
+            style="width: 50px; height: 50px;">
+            <i class="bi bi-facebook fs-4"></i>
+          </div>
+          <small class="text-white-50">Facebook</small>
+        </a>
+        <a href="#" class="text-decoration-none text-center opacity-50 pe-none">
+          <div class="btn btn-danger rounded-circle d-flex align-items-center justify-content-center mb-2"
+            style="width: 50px; height: 50px;">
+            <i class="bi bi-instagram fs-4"></i>
+          </div>
+          <small class="text-white-50">Instagram</small>
+        </a>
+      </div>
+
+      <div class="input-group bg-dark border border-secondary rounded-3 p-1">
+        <input id="share-link-input" type="text" class="form-control bg-transparent border-0 text-white shadow-none"
+          readonly>
+        <button id="btn-copy-link" class="btn btn-primary rounded-3 fw-bold px-3">Copy</button>
+      </div>
+    </div>
+  </div>
+  <!-- Splash Screen -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-content">
+      <img src="/INAM-Music/logo.png" alt="INAM Music Logo" class="splash-logo">
+    </div>
+  </div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top glass-effect">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <img src="/INAM-Music/logo.png" alt="INAM Music Logo" width="150" height="40" class="logo-desktop rounded">
+        <img src="/INAM-Music/logo_2.png" alt="INAM Music Logo" width="50" height="50" class="logo-responsive rounded">
+      </a>
+
+      <!-- Home Button -->
+      <a href="index.html" class="btn-home d-flex" title="Home">
+        <i class="bi bi-house-door-fill"></i>
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="search-box-container">
+        <div class="search-box">
+          <i class="bi bi-search search-icon"></i>
+          <input type="text" id="search-input" placeholder="Search artists, songs, albums..."
+            class="form-control border-0 bg-transparent">
+          <button id="btn-mic" class="btn btn-mic btn-icon text-secondary border-0 p-0 hover-green-small">
+            <i class="bi bi-mic"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav gap-3 align-items-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Discover</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#library">Library</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#playlists">Playlists</a>
+          </li>
+          <!-- Auth Buttons -->
+          <li class="nav-item d-flex gap-2 align-items-center auth-buttons" id="auth-buttons">
+            <button id="btn-signin" class="btn btn-outline-light rounded-pill px-4 border-opacity-25">Sign In</button>
+            <button id="btn-signup" class="btn btn-primary rounded-pill px-4 btn-glow btn-signup">Sign Up</button>
+          </li>
+          <!-- User Profile (Hidden by default) -->
+          <li class="nav-item user-profile-section d-none gap-3 align-items-center" id="user-profile-section">
+            <button class="btn btn-icon btn-notification text-white position-relative border-0 bg-transparent">
+              <i class="bi bi-bell"></i>
+              <span
+                class="position-absolute top-0 start-100 translate-middle p-1 bg-primary border border-dark rounded-circle notification-dot"></span>
+            </button>
+            <div class="dropdown">
+              <div id="user-avatar" class="user-avatar-circle" data-bs-toggle="dropdown" aria-expanded="false">J</div>
+              <ul
+                class="dropdown-menu dropdown-menu-end glass-effect border-0 shadow-lg mt-3 p-2 rounded-4 animate__animated animate__fadeIn">
+                <li><a id="btn-show-profile" class="dropdown-item rounded-3 py-2 px-3 d-flex align-items-center gap-2"
+                    href="#"><i class="bi bi-person"></i> Profile</a></li>
+                <li><a class="dropdown-item rounded-3 py-2 px-3 d-flex align-items-center gap-2" href="#"><i
+                      class="bi bi-gear"></i> Settings</a></li>
+                <li>
+                  <hr class="dropdown-divider bg-white opacity-10">
+                </li>
+                <li><a id="btn-logout"
+                    class="dropdown-item rounded-3 py-2 px-3 d-flex align-items-center gap-2 text-danger" href="#"><i
+                      class="bi bi-box-arrow-right"></i> Log Out</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container-fluid p-0">
+
+    <!-- Home View Container -->
+    <div id="home-view" class="home-view">
+      <!-- Hero Section -->
+      <section
+        class="hero-section d-flex align-items-center justify-content-center text-center text-white position-relative overflow-hidden">
+        <div class="hero-bg-overlay"></div>
+        <div class="container hero-content-wrapper position-relative z-2">
+          <span
+            class="badge bg-white text-dark rounded-pill mb-3 px-3 py-2 text-uppercase fw-bold tracking-wider fade-in-up">Trending
+            Now</span>
+          <h1 class="display-1 fw-bold mb-4 fade-in-up text-gradient-hero">Desi Beats &<br>Bollywood Hits</h1>
+          <p class="lead mb-5 fade-in-up text-light opacity-75">
+            Stream the best of Indian cinema music in high-fidelity. From soulful Sufi to high-energy item numbers.
+          </p>
+          <div class="d-flex gap-3 justify-content-center fade-in-up">
+            <button class="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg hover-scale">Play Top 50</button>
+            <button class="btn btn-outline-light btn-lg rounded-pill px-5 fw-bold hover-scale">Browse Genres</button>
+          </div>
+        </div>
+
+        <!-- Abstract Shapes for Visual Interest -->
+        <div class="abstract-shape shape-1"></div>
+        <div class="abstract-shape shape-2"></div>
+      </section>
+
+      <!-- Dynamic Categories Grid -->
+      <section class="py-5 music-categories" id="music-categories">
+        <!-- Recently Played Section (Hidden until a song is played) -->
+        <div id="recently-played-section" class="container category-group-container mb-5 d-none">
+          <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+              <h2 class="fw-bold mb-1">Recently Played</h2>
+              <p class="text-secondary mb-0">Pick up where you left off</p>
+            </div>
+            <a href="#" class="text-decoration-none text-primary fw-bold">Clear All</a>
+          </div>
+          <div class="row g-4 overflow-x-auto flex-nowrap hide-scrollbar pb-3" id="recently-played-grid">
+            <!-- Tracks will be injected here via JS -->
+          </div>
+        </div>
+
+        <!-- Latest Song Section -->
+        <div class="container category-group-container mb-5">
+          <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+              <h2 class="fw-bold mb-1">Latest Song</h2>
+              <p class="text-secondary mb-0">Newly released tracks for you</p>
+            </div>
+            <a href="#" class="text-decoration-none text-primary fw-bold view-all-btn" id="view-all-latest">View All</a>
+          </div>
+          <div class="row g-4 overflow-x-auto flex-nowrap hide-scrollbar pb-3" id="latest-songs-grid">
+            <!-- Tracks will be injected here via JS -->
+          </div>
+        </div>
+
+        <!-- 90's Songs Section -->
+        <div class="container category-group-container mb-5">
+          <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+              <h2 class="fw-bold mb-1">90's Songs</h2>
+              <p class="text-secondary mb-0">Golden hits from the 90s</p>
+            </div>
+            <a href="#" class="text-decoration-none text-primary fw-bold view-all-btn" id="view-all-ninety">View All</a>
+          </div>
+          <div class="row g-4 overflow-x-auto flex-nowrap hide-scrollbar pb-3" id="ninety-songs-grid">
+            <!-- Tracks will be injected here via JS -->
+          </div>
+        </div>
+
+        <!-- Hindi Bollywood Songs Section -->
+        <div class="container category-group-container mb-5">
+          <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+              <h2 class="fw-bold mb-1">Hindi Bollywood Songs</h2>
+              <p class="text-secondary mb-0">Top chartbusters from Bollywood</p>
+            </div>
+            <a href="#" class="text-decoration-none text-primary fw-bold view-all-btn" id="view-all-bollywood">View
+              All</a>
+          </div>
+          <div class="row g-4 overflow-x-auto flex-nowrap hide-scrollbar pb-3" id="bollywood-songs-grid">
+            <!-- Tracks will be injected here via JS -->
+          </div>
+        </div>
+
+        <!-- Marathi Songs Section -->
+        <div class="container category-group-container mb-5">
+          <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+              <h2 class="fw-bold mb-1">Marathi Songs</h2>
+              <p class="text-secondary mb-0">Marathi hits from the 90s</p>
+            </div>
+            <a href="#" class="text-decoration-none text-primary fw-bold view-all-btn" id="view-all-marathi">View
+              All</a>
+          </div>
+          <div class="row g-4 overflow-x-auto flex-nowrap hide-scrollbar pb-3" id="marathi-songs-grid">
+            <!-- Tracks will be injected here via JS -->
+          </div>
+        </div>
+
+        <!-- Devotional Songs Section -->
+        <div class="container category-group-container">
+          <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+              <h2 class="fw-bold mb-1">Devotional Songs</h2>
+              <p class="text-secondary mb-0">Bhakti and spiritual melodies</p>
+            </div>
+            <a href="#" class="text-decoration-none text-primary fw-bold view-all-btn" id="view-all-devotional">View
+              All</a>
+          </div>
+          <div class="row g-4 overflow-x-auto flex-nowrap hide-scrollbar pb-3" id="devotional-songs-grid">
+            <!-- Tracks will be injected here via JS -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Category Full View Section (New Page Functionality) -->
+    <section id="category-full-view" class="category-full-view d-none">
+      <div class="container category-view-container">
+        <div class="mb-5 mt-4">
+          <button id="btn-back-home"
+            class="btn btn-back-home btn-outline-light rounded-pill px-4 mb-4 hover-scale d-flex align-items-center gap-2">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </button>
+          <div class="d-flex justify-content-between align-items-end">
+            <div>
+              <h1 id="category-view-title" class="display-3 fw-bold mb-2 text-gradient-hero">Category Title</h1>
+              <p id="category-view-desc" class="text-secondary mb-0 h5 fw-normal">Category description goes here</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="category-view-grid" class="row g-4">
+          <!-- Full 20 tracks will be injected here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Player Bar (Fixed Bottom) -->
+    <div id="player-bar"
+      class="player-bar fixed-bottom glass-effect border-top border-light border-opacity-10 slide-up">
+      <div class="container-fluid d-flex align-items-center justify-content-between player-inner-container">
+
+        <!-- Track Info -->
+        <div class="d-flex align-items-center gap-3 player-track-info">
+          <div id="player-art" class="player-art player-thumb rounded bg-secondary bg-opacity-25"></div>
+          <div class="player-track-text">
+            <h6 id="player-title" class="mb-0 fw-bold title-text">Select a track</h6>
+            <small id="player-artist" class="text-secondary artist-text">--</small>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="d-flex flex-column align-items-center flex-grow-1 player-controls-container">
+          <div class="d-flex align-items-center gap-4 mb-2">
+            <!-- Shuffle Button -->
+            <button id="btn-shuffle" class="btn btn-shuffle btn-icon text-secondary hover-green-small">
+              <i class="bi bi-shuffle"></i>
+            </button>
+            <button id="btn-prev" class="btn btn-icon text-secondary hover-white-small">
+              <i class="bi bi-skip-start-fill"></i>
+            </button>
+            <button id="btn-play-pause"
+              class="btn btn-play-pause btn-white-circle p-2 shadow-sm d-flex align-items-center justify-content-center">
+              <i id="icon-play" class="bi bi-play-fill text-dark fs-icon-base"></i>
+              <i id="icon-pause" class="bi bi-pause-fill text-dark d-none fs-icon-base"></i>
+            </button>
+            <button id="btn-next" class="btn btn-icon text-secondary hover-white-small">
+              <i class="bi bi-skip-end-fill"></i>
+            </button>
+            <!-- Repeat Button -->
+            <button id="btn-repeat" class="btn btn-repeat btn-icon text-secondary hover-green-small">
+              <i class="bi bi-repeat"></i>
+            </button>
+          </div>
+          <div class="w-100 d-flex align-items-center gap-2">
+            <small id="time-current" class="text-secondary tiny-text time-current">0:00</small>
+            <div id="progress-container" class="progress progress-container flex-grow-1">
+              <div id="progress-bar" class="progress-bar progress-bar-fill bg-primary" role="progressbar"></div>
+            </div>
+            <small id="time-total" class="text-secondary tiny-text time-total">0:00</small>
+          </div>
+        </div>
+
+        <!-- Extra Controls -->
+        <div class="d-flex align-items-center gap-3 d-none d-md-flex position-relative player-extra-controls">
+          <button id="btn-volume" class="btn btn-icon text-secondary">
+            <i id="icon-volume" class="bi bi-volume-up"></i>
+          </button>
+          <div id="volume-container" class="progress volume-progress cursor-pointer">
+            <div id="volume-bar" class="progress-bar bg-primary" role="progressbar"></div>
+          </div>
+
+        </div>
+
+        <!-- Close Player Bar Button (Visible on all screens) -->
+        <button id="btn-close-player" class="btn btn-close-player btn-icon text-secondary ms-2 ms-md-3">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Sign In Overlay -->
+    <section id="signin-overlay" class="signin-overlay d-none">
+      <div class="signin-container glass-effect p-5 rounded-4 shadow-lg">
+        <button id="btn-close-signin" class="btn-close-custom p-2">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-gradient">Welcome Back</h2>
+          <p class="text-secondary">Sign in to sync your library across devices</p>
+        </div>
+        <div id="signin-error"
+          class="alert alert-danger d-none py-2 px-3 small mb-3 border-0 bg-danger bg-opacity-10 text-danger"></div>
+        <form id="signin-form">
+          <div class="mb-3">
+            <label for="email" class="form-label small text-secondary fw-bold uppercase tracking-wider">Email
+              Address</label>
+            <input type="email" class="form-control bg-dark border-secondary bg-opacity-25" id="email"
+              placeholder="name@example.com" required>
+          </div>
+          <div class="mb-4">
+            <label for="password"
+              class="form-label small text-secondary fw-bold uppercase tracking-wider">Password</label>
+            <input type="password" class="form-control bg-dark border-secondary bg-opacity-25" id="password"
+              placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold mb-3 shadow-glow">Sign
+            In</button>
+          <div class="text-center">
+            <small class="text-secondary">Don't have an account? <a href="#" id="link-to-signup"
+                class="text-primary text-decoration-none fw-bold">Sign Up</a></small>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- Sign Up Overlay -->
+    <section id="signup-overlay" class="signup-overlay d-none">
+      <div class="signup-container glass-effect p-5 rounded-4 shadow-lg">
+        <button id="btn-close-signup" class="btn-close-custom p-2">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-gradient">Create Account</h2>
+          <p class="text-secondary">Join INAM Music and start your musical journey</p>
+        </div>
+        <div class="error-msg d-none"></div>
+        <form id="signup-form">
+          <div class="mb-3">
+            <label for="reg-name" class="form-label small text-secondary fw-bold uppercase tracking-wider">Full
+              Name</label>
+            <input type="text" class="form-control bg-dark border-secondary bg-opacity-25" id="reg-name"
+              placeholder="John Doe" required>
+          </div>
+          <div class="mb-3">
+            <label for="reg-email" class="form-label small text-secondary fw-bold uppercase tracking-wider">Email
+              Address</label>
+            <input type="email" class="form-control bg-dark border-secondary bg-opacity-25" id="reg-email"
+              placeholder="name@example.com" required>
+          </div>
+          <div class="mb-4">
+            <label for="reg-password"
+              class="form-label small text-secondary fw-bold uppercase tracking-wider">Password</label>
+            <input type="password" class="form-control bg-dark border-secondary bg-opacity-25" id="reg-password"
+              placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold mb-3 shadow-glow">Sign
+            Up</button>
+          <div class="text-center">
+            <small class="text-secondary">Already have an account? <a href="#" id="link-to-signin"
+                class="text-primary text-decoration-none fw-bold">Sign In</a></small>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- Profile Overlay -->
+    <section id="profile-overlay" class="profile-overlay d-none">
+      <div class="profile-container glass-effect p-5 rounded-4 shadow-lg text-center">
+        <button id="btn-close-profile" class="btn-close-custom p-2">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="user-profile-avatar-large mx-auto mb-4" id="profile-avatar-large">J</div>
+        <h2 class="fw-bold text-gradient mb-1" id="profile-name-display">John Doe</h2>
+        <p class="text-secondary mb-4" id="profile-email-display">john@example.com</p>
+
+        <div class="profile-info-grid text-start">
+          <div class="info-item mb-3">
+            <span class="label text-secondary small uppercase tracking-wider d-block">Full Name</span>
+            <span class="value fw-bold" id="profile-full-name">John Doe</span>
+          </div>
+          <div class="info-item mb-4">
+            <span class="label text-secondary small uppercase tracking-wider d-block">Email Address</span>
+            <span class="value fw-bold" id="profile-full-email">john@example.com</span>
+          </div>
+        </div>
+
+        <button id="btn-logout-profile"
+          class="btn btn-logout-profile btn-outline-danger w-100 rounded-pill py-3 fw-bold">Log
+          Out</button>
+      </div>
+    </section>
+
+    <!-- Playback Auth Pop-up (Like Spotify) -->
+    <section id="play-auth-overlay" class="play-auth-overlay d-none">
+      <div class="auth-modal-container bg-dark text-white rounded-4 shadow-lg overflow-hidden d-flex">
+        <!-- Close Button -->
+        <button id="btn-close-play-auth" class="btn-close-custom z-3">
+          <i class="bi bi-x-lg text-white"></i>
+        </button>
+
+        <!-- Left Side: Album Art -->
+        <div class="auth-modal-image position-relative">
+          <img id="play-auth-img" src="" alt="Album Art" class="w-100 h-100 object-fit-cover">
+          <div class="position-absolute bottom-0 start-0 w-100 p-4 bg-gradient-to-t">
+            <h3 id="play-auth-title" class="fw-bold mb-0 text-shadow">Song Title</h3>
+            <p id="play-auth-artist" class="small mb-0 text-white-50 text-shadow">Artist Name</p>
+          </div>
+        </div>
+
+        <!-- Right Side: Content -->
+        <div class="auth-modal-content p-5 d-flex flex-column justify-content-center align-items-center text-center">
+          <h2 class="fw-bold mb-5">Start listening with a free INAM Music account</h2>
+
+          <button id="btn-auth-signup" class="btn btn-success rounded-pill px-5 py-3 fw-bold mb-4 w-100 hover-scale">
+            Sign up for free
+          </button>
+
+          <p class="text-secondary small mt-4">
+            Already have an account?
+            <a href="#" id="btn-auth-login" class="text-white fw-bold text-decoration-none hover-underline">Sign in</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container footer-content"> <!-- Removed pb-5 to consolidate spacing in SCSS -->
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <a class="navbar-brand fw-bold text-gradient fs-3 d-block mb-3" href="#">INAM Music</a>
+            <p class="text-secondary mb-4 footer-desc">Elevate your auditory experience with premium sound quality and
+              curated playlists. Your journey through the world of music starts here.</p>
+            <div class="social-links d-flex gap-3">
+              <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-6">
+            <h5 class="fw-bold mb-4 text-white">Platform</h5>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#">Discover</a></li>
+              <li><a href="#">Trending</a></li>
+              <li><a href="#">New Releases</a></li>
+              <li><a href="#">Categories</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-3 col-6">
+            <h5 class="fw-bold mb-4 text-white">Company</h5>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Press</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <h5 class="fw-bold mb-4 text-white">Newsletter</h5>
+            <p class="text-secondary small mb-3">Subscribe to get the latest updates and music news.</p>
+            <div class="newsletter-box">
+              <input type="email" class="form-control" placeholder="Email address">
+              <button class="btn btn-primary rounded-pill btn-sm">Subscribe</button>
+            </div>
+          </div>
+        </div>
+        <hr class="my-5 border-white opacity-10">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+          <p class="text-secondary small mb-0">&copy; 2026 INAM Music. All rights reserved.</p>
+          <div class="d-flex gap-4">
+            <a href="#" class="text-secondary small text-decoration-none hover-white">Privacy Policy</a>
+            <a href="#" class="text-secondary small text-decoration-none hover-white">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Player Detail View (Overlay) -->
+    <section id="player-detail-view" class="player-detail-view d-none">
+      <!-- Close button -->
+      <button id="btn-close-detail" class="btn btn-close-detail btn-icon shadow-lg border-0">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <div class="detail-container">
+
+        <!-- Banner Section -->
+        <div class="detail-banner d-flex align-items-end">
+          <div class="detail-banner-content d-flex align-items-end gap-5 w-100">
+            <div class="detail-album-art shadow-lg">
+              <img id="detail-img" src="" alt="Album Art">
+            </div>
+            <div class="detail-text-info">
+              <span class="text-uppercase small fw-bold tracking-wider mb-2 d-block opacity-75">Single</span>
+              <h1 id="detail-title" class="fw-black mb-3">Song Title</h1>
+              <div class="detail-meta d-flex align-items-center gap-2 small fw-bold">
+                <img src="https://ui-avatars.com/api/?name=Music+App&background=1ed760&color=fff"
+                  class="artist-mini-img rounded-circle border border-white border-opacity-10" alt="" width="28"
+                  height="28">
+                <span id="detail-artist-info" class="text-white">Artist Name • 2026 • 1 song, ...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Section -->
+        <div class="detail-actions-section">
+          <div class="d-flex align-items-center justify-content-between mb-5">
+            <div class="d-flex align-items-center gap-4">
+              <button id="btn-detail-play"
+                class="btn-detail-play-pause btn btn-success rounded-circle d-flex align-items-center justify-content-center shadow-lg">
+                <i id="detail-play-icon" class="bi bi-play-fill text-white fs-icon-large"></i>
+                <i id="detail-pause-icon" class="bi bi-pause-fill text-white d-none fs-icon-large"></i>
+              </button>
+              <button id="btn-detail-heart" class="btn btn-icon text-secondary hover-white">
+                <i class="bi bi-heart"></i>
+              </button>
+              <button id="btn-detail-shuffle" class="btn btn-icon text-secondary hover-green">
+                <i class="bi bi-shuffle"></i>
+              </button>
+              <button id="btn-detail-plus" class="btn btn-icon text-secondary hover-white">
+                <i class="bi bi-plus-circle"></i>
+              </button>
+              <button id="btn-detail-download" class="btn btn-icon text-secondary hover-white">
+                <i class="bi bi-download"></i>
+              </button>
+              <div class="position-relative">
+                <button id="btn-detail-options" class="btn btn-icon text-secondary hover-white">
+                  <i class="bi bi-three-dots"></i>
+                </button>
+                <!-- More Options Menu -->
+                <div id="more-options-menu" class="more-options-menu d-none">
+                  <ul class="list-unstyled mb-0">
+                    <li id="opt-share" class="menu-item"><i class="bi bi-share me-3"></i> Share</li>
+                    <li id="opt-lyrics" class="menu-item"><i class="bi bi-music-note-list me-3"></i> Show Lyrics</li>
+                    <li id="opt-artist" class="menu-item"><i class="bi bi-person me-3"></i> View Artist</li>
+                    <li id="opt-queue" class="menu-item"><i class="bi bi-list-plus me-3"></i> Add to Queue</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="text-secondary small fw-bold d-flex align-items-center gap-2">
+              <span>Compact</span>
+              <i class="bi bi-list"></i>
+            </div>
+          </div>
+
+          <!-- Track List Table -->
+          <div class="detail-track-list">
+            <div
+              class="detail-track-header d-flex text-secondary small fw-bold uppercase py-2 border-bottom border-white border-opacity-10 mb-3 px-3">
+              <span class="track-header-num">#</span>
+              <span class="track-header-title flex-grow-1 ms-3">Title</span>
+              <span class="track-header-artist flex-grow-2 d-none d-md-block">Artist</span>
+              <span class="track-header-duration text-end"><i class="bi bi-clock"></i></span>
+            </div>
+            <div class="detail-track-item d-flex align-items-center py-3 rounded-3 px-3 active-track glass-hover">
+              <span class="track-num text-success fw-bold">
+                <div class="playing-bars">
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                </div>
+              </span>
+              <div class="track-info flex-grow-1 ms-3">
+                <span id="detail-active-title" class="detail-active-title text-success fw-bold d-block fs-5">Song
+                  Title</span>
+              </div>
+              <span id="detail-active-artist"
+                class="detail-active-artist track-artist text-secondary flex-grow-2 d-none d-md-block">Artist
+                Name</span>
+              <span id="detail-active-duration"
+                class="detail-active-duration track-duration text-secondary text-end">...</span>
+            </div>
+          </div>
+
+          <div class="detail-copyright mt-5 text-secondary tiny-text opacity-50 px-3">
+            <p class="mb-1 fw-bold">15 February 2026</p>
+            <p>&copy; 2026 INAM Music Private Ltd.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lyrics Overlay -->
+    <section id="lyrics-overlay" class="lyrics-overlay d-none">
+      <div
+        class="lyrics-container position-relative w-100 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+        <!-- Close Button -->
+        <button id="btn-close-lyrics" class="btn-close-custom position-absolute top-0 end-0 z-3">
+          <i class="bi bi-x-lg text-white"></i>
+        </button>
+
+        <div class="lyrics-header mb-4">
+          <h2 id="lyrics-song-title" class="fw-bold text-white mb-1">Song Title</h2>
+          <p id="lyrics-song-artist" class="text-secondary small">Artist Name</p>
+        </div>
+
+        <div class="lyrics-content-wrapper w-100 h-100 overflow-auto hide-scrollbar">
+          <div id="lyrics-content" class="lyrics-text text-white fw-bold fs-3 lh-lg" style="white-space: pre-line;">
+            Loading lyrics...
+            (No lyrics available for this demo)
+          </div>
+        </div>
+
+        <!-- Mini Player on Lyrics View -->
+        <div class="lyrics-mini-player w-100 mt-auto p-4 d-flex align-items-center gap-4 glass-player">
+          <button id="btn-lyrics-play-pause"
+            class="btn btn-success rounded-circle shadow-lg flex-shrink-0 d-flex align-items-center justify-content-center"
+            style="width: 56px; height: 56px;">
+            <i class="bi bi-play-fill text-white fs-2 lyrics-play-icon"></i>
+            <i class="bi bi-pause-fill text-white fs-2 lyrics-pause-icon d-none"></i>
+          </button>
+          <div class="lyrics-player-info flex-grow-1 text-start overflow-hidden">
+            <div class="d-flex justify-content-between align-items-end mb-1">
+              <div class="overflow-hidden">
+                <h6 id="lyrics-mini-title" class="text-white mb-0 fw-bold fs-5 text-truncate">Song Title</h6>
+                <p id="lyrics-mini-artist" class="text-white opacity-75 small mb-0 text-truncate">Artist</p>
+              </div>
+              <div class="text-white opacity-75 small flex-shrink-0 ms-2">
+                <span id="lyrics-mini-current">0:00</span> / <span id="lyrics-mini-total">0:00</span>
+              </div>
+            </div>
+            <div id="lyrics-mini-container"
+              class="mini-progress-container w-100 bg-white bg-opacity-10 rounded-pill overflow-hidden"
+              style="height: 6px; cursor: pointer;">
+              <div id="lyrics-mini-progress" class="bg-success rounded-pill h-100"
+                style="width: 0%; transition: width 0.1s linear;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Templates -->
+  <template id="track-card-template">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-6 fade-in-up">
+      <div class="card track-card border-0 bg-transparent h-100">
+        <div class="card-img-wrapper position-relative rounded-4 overflow-hidden mb-3 aspect-square shadow-sm">
+          <img src="" alt="" class="w-100 h-100 object-fit-cover" loading="lazy">
+          <div class="play-overlay d-flex align-items-center justify-content-center">
+            <button class="btn btn-primary rounded-circle p-3 shadow-lg btn-play">
+              <i class="bi bi-play-fill fs-4"></i>
+            </button>
+          </div>
+        </div>
+        <h6 class="card-title fw-bold mb-1 text-truncate"></h6>
+        <p class="card-text text-secondary small text-truncate"></p>
+      </div>
+    </div>
+  </template>
+
+  <template id="no-results-template">
+    <div class="col-12 text-center py-5 text-secondary">No tracks found matching your search.</div>
+  </template>
+
+  <!-- Scripts -->
+</body>
+
+</html>
